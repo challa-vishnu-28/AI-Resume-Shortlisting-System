@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-heading">
+    <div>
+        <h1>{{ "Admin Dashboard" if current_user.role == "admin" else "User Dashboard" }}</h1>
+        <p class="muted">Screen resumes, review match reports, and monitor algorithm results.</p>
+    </div>
+    <a class="button-link" href="{{ url_for('match') }}">New Screening</a>
+</section>
+
+<section class="stats-grid">
+    {% if current_user.role == "admin" %}
+    <div class="stat">
+        <span>Users</span>
+        <strong>{{ total_users }}</strong>
+    </div>
+    {% endif %}
+    <div class="stat">
+        <span>Generated Reports</span>
+        <strong>{{ total_reports }}</strong>
+    </div>
+    <div class="stat">
+        <span>Role</span>
+        <strong>{{ current_user.role|title }}</strong>
+    </div>
+</section>
+
+<section class="content-panel">
+    <div class="panel-title">
+        <h2>Recent Reports</h2>
+        <a href="{{ url_for('reports') }}">View all</a>
+    </div>
+    {% if recent_reports %}
+    <table>
+        <thead>
+            <tr>
+                <th>Job</th>
+                <th>User</th>
+                <th>Score</th>
+                <th>Category</th>
+                <th>Date</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for report in recent_reports %}
+            <tr>
+                <td>{{ report.job_title }}</td>
+                <td>{{ report.username }}</td>
+                <td>{{ report.score }}%</td>
+                <td><span class="pill">{{ report.category }}</span></td>
+                <td>{{ report.created_at }}</td>
+                <td><a href="{{ url_for('report_detail', report_id=report.id) }}">Open</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="empty">No reports generated yet.</p>
+    {% endif %}
+</section>
+{% endblock %}

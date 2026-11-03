@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="narrow">
+    <h1>AI Resume Screening & Job Matching</h1>
+    <p class="muted">Upload a PDF or DOCX resume and compare it with a job description.</p>
+    <form action="{{ url_for('match') }}" method="post" enctype="multipart/form-data" class="form content-panel">
+        <label>Job Title</label>
+        <input type="text" name="job_title" placeholder="Example: Python Developer" required>
+
+        <label>Upload Resume</label>
+        <input type="file" name="resume" accept=".pdf,.docx" required>
+
+        <label>Job Description</label>
+        <textarea name="job_description" rows="10" placeholder="Paste the complete job description here..." required></textarea>
+
+        <button type="submit">Analyze Score</button>
+    </form>
+</section>
+{% endblock %}

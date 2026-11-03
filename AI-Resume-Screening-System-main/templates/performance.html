@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-heading">
+    <div>
+        <h1>Algorithm Performance Graph</h1>
+        <p class="muted">Performance summary based on generated match reports.</p>
+    </div>
+</section>
+
+<section class="stats-grid">
+    <div class="stat">
+        <span>Total Reports</span>
+        <strong>{{ total }}</strong>
+    </div>
+    <div class="stat">
+        <span>Average Score</span>
+        <strong>{{ average_score }}%</strong>
+    </div>
+</section>
+
+<section class="content-panel">
+    <h2>Match Category Distribution</h2>
+    <div class="chart">
+        {% for label, count in buckets.items() %}
+        <div class="bar-row">
+            <span>{{ label }}</span>
+            <div class="bar-track">
+                <div class="bar" style="width: {{ (count / total * 100) if total else 0 }}%"></div>
+            </div>
+            <strong>{{ count }}</strong>
+        </div>
+        {% endfor %}
+    </div>
+    {% if not total %}
+    <p class="empty">Generate reports to populate the graph.</p>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-heading">
+    <div>
+        <h1>{{ "All Generated Reports" if current_user.role == "admin" else "My Generated Reports" }}</h1>
+        <p class="muted">Open any report to view the full match analysis.</p>
+    </div>
+    <a class="button-link" href="{{ url_for('match') }}">New Screening</a>
+</section>
+
+<section class="content-panel">
+    {% if reports %}
+    <table>
+        <thead>
+            <tr>
+                <th>Job</th>
+                <th>Resume</th>
+                <th>User</th>
+                <th>Score</th>
+                <th>Category</th>
+                <th>Date</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for report in reports %}
+            <tr>
+                <td>{{ report.job_title }}</td>
+                <td>{{ report.resume_name }}</td>
+                <td>{{ report.username }}</td>
+                <td>{{ report.score }}%</td>
+                <td><span class="pill">{{ report.category }}</span></td>
+                <td>{{ report.created_at }}</td>
+                <td><a href="{{ url_for('report_detail', report_id=report.id) }}">View</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="empty">No reports available.</p>
+    {% endif %}
+</section>
+{% endblock %}

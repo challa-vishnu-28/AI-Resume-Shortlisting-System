@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="auth-layout">
+    <div class="auth-panel">
+        <h1>User Registration</h1>
+        <p class="muted">Create a user account for resume screening and reports.</p>
+        <form method="post" class="form">
+            <label>Full Name</label>
+            <input type="text" name="full_name">
+
+            <label>Email</label>
+            <input type="email" name="email">
+
+            <label>Username</label>
+            <input type="text" name="username" required>
+
+            <label>Password</label>
+            <input type="password" name="password" required>
+
+            <button type="submit">Register</button>
+        </form>
+        <p class="footnote">Already registered? <a href="{{ url_for('login') }}">Login</a></p>
+    </div>
+</section>
+{% endblock %}

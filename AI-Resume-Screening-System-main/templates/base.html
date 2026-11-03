@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title or "AI-Based Resume Shortlisting System" }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" href="{{ url_for('dashboard') if current_user else url_for('login') }}">AI-Based Resume Shortlisting System</a>
+        {% if current_user %}
+        <nav>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('match') }}">Screen Resume</a>
+            <a href="{{ url_for('reports') }}">Reports</a>
+            <a href="{{ url_for('performance') }}">Performance</a>
+            {% if current_user.role == "admin" %}
+            <a href="{{ url_for('admin_users') }}">Manage Users</a>
+            {% else %}
+            <a href="{{ url_for('profile') }}">Profile</a>
+            {% endif %}
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </nav>
+        {% endif %}
+    </header>
+
+    <main class="page">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="messages">
+                {% for category, message in messages %}
+                    <div class="message {{ category }}">{{ message }}</div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

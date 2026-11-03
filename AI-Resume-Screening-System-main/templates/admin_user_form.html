@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="narrow">
+    <h1>{{ "Update User" if edited_user else "Add User" }}</h1>
+    <form method="post" class="form content-panel">
+        <label>Username</label>
+        <input type="text" name="username" value="{{ edited_user.username if edited_user else '' }}" required>
+
+        <label>Password {{ "(leave blank to keep current)" if edited_user else "" }}</label>
+        <input type="password" name="password" {{ "" if edited_user else "required" }}>
+
+        <label>Role</label>
+        <select name="role">
+            <option value="user" {% if edited_user and edited_user.role == "user" %}selected{% endif %}>User</option>
+            <option value="admin" {% if edited_user and edited_user.role == "admin" %}selected{% endif %}>Admin</option>
+        </select>
+
+        <label>Full Name</label>
+        <input type="text" name="full_name" value="{{ edited_user.full_name if edited_user else '' }}">
+
+        <label>Email</label>
+        <input type="email" name="email" value="{{ edited_user.email if edited_user else '' }}">
+
+        <label>Phone</label>
+        <input type="text" name="phone" value="{{ edited_user.phone if edited_user else '' }}">
+
+        <label>Skills</label>
+        <textarea name="skills" rows="4">{{ edited_user.skills if edited_user else '' }}</textarea>
+
+        <button type="submit">Save User</button>
+    </form>
+</section>
+{% endblock %}

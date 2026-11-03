@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="narrow">
+    <h1>Update Profile</h1>
+    <form method="post" class="form content-panel">
+        <label>Full Name</label>
+        <input type="text" name="full_name" value="{{ user.full_name or '' }}">
+
+        <label>Email</label>
+        <input type="email" name="email" value="{{ user.email or '' }}">
+
+        <label>Phone</label>
+        <input type="text" name="phone" value="{{ user.phone or '' }}">
+
+        <label>Skills</label>
+        <textarea name="skills" rows="5" placeholder="Example: python, sql, flask">{{ user.skills or '' }}</textarea>
+
+        <button type="submit">Update Profile</button>
+    </form>
+</section>
+{% endblock %}

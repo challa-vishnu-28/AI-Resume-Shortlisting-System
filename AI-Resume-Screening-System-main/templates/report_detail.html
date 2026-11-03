@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-heading">
+    <div>
+        <h1>Match Report</h1>
+        <p class="muted">{{ report.job_title }} | {{ report.created_at }}</p>
+    </div>
+    <button class="button-link" onclick="window.print()">Print Report</button>
+</section>
+
+<section class="report-grid">
+    <div class="score-panel">
+        <span>Match Score</span>
+        <strong>{{ report.score }}%</strong>
+        <p class="pill large">{{ report.category }}</p>
+    </div>
+    <div class="content-panel">
+        <h2>Candidate Details</h2>
+        <p><b>User:</b> {{ report.username }}</p>
+        <p><b>Name:</b> {{ report.full_name or "Not provided" }}</p>
+        <p><b>Email:</b> {{ report.email or "Not provided" }}</p>
+        <p><b>Resume:</b> {{ report.resume_name }}</p>
+    </div>
+</section>
+
+<section class="content-panel">
+    <h2>Analysis Result</h2>
+    <div class="two-column">
+        <div>
+            <h3>Matched Skills</h3>
+            <p>{{ report.matched_skills or "No matched skills found." }}</p>
+        </div>
+        <div>
+            <h3>Missing Skills</h3>
+            <p>{{ report.missing_skills or "No missing skills found." }}</p>
+        </div>
+    </div>
+    <h3>Recommendation</h3>
+    <p>{{ report.recommendation }}</p>
+</section>
+{% endblock %}
